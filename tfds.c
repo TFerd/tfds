@@ -1,41 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
+typedef struct ListNode { 
   int value;
-  struct IntLinkedList *prev;
-  // next
-} IntLinkedList;
+  struct ListNode *prev;
+}ListNode;
 
+ListNode* new_node(int value) {
+  ListNode *node = (ListNode*)malloc(sizeof(ListNode));
+  node->value = value;
 
-/// Creates the head of the stack
-IntLinkedList *int_list_new(int value) {
-  IntLinkedList *temp = (IntLinkedList *)malloc(sizeof(IntLinkedList));
-  temp->value = value;
-  return temp;
+  return node;
 }
 
-/// Pushes an integer onto the list
-IntLinkedList *int_list_push(IntLinkedList *list, int value) {
-  IntLinkedList *newList = int_list_new(value);
-  newList->prev = list;
+void print_list(ListNode *list) {
+  if (list == NULL){
+    printf("Failed to print list: given list was NULL!");
+    exit(0);
+  }
 
-  return newList;
+  ListNode *c = list;
+  
+  printf("%d", c->value);
+
+  while (c->prev != NULL) {
+    c = c->prev;
+    printf(",%d", c->value);
+  }
 }
 
-void print_list(IntLinkedList *list) {}
+/// Returns tail of the list
+ListNode* push(ListNode *list, int value) {
+  ListNode *node = new_node(value);
+  node->prev = list;
 
-int tfds_IntLinkedList_pop(IntLinkedList *list) {
-  // int value = &stack.value;
-  int value = list->value;
-  printf("%d", value);
+  return node;
 }
+
+// ListNode* pop(ListNode *list) {}
+
+// ListNode* reverse(ListNode *list) {}
 
 int main() {
-  IntLinkedList *list = int_list_new(1);
-  list = tfds_IntLinkedList_push(list, 2);
+  ListNode *list = new_node(1);
+  list = push(list, 2);
+  list = push(list, 3);
 
-  
-
-  printf("hi\n");
+  print_list(list);
 }
