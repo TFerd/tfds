@@ -1,29 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// TODO: move to its own stack.c file 
+// TODO: move to its own stack.c file
 
-typedef struct StackNode { 
+typedef struct StackNode {
   int value;
   struct StackNode *prev;
-}StackNode;
+} StackNode;
 
-StackNode* stack_node(int value) {
-  StackNode *node = (StackNode*)malloc(sizeof(StackNode));
+StackNode *stack_node(int value) {
+  StackNode *node = (StackNode *)malloc(sizeof(StackNode));
   node->value = value;
 
   return node;
 }
 
-/// Prints the staclk
-void print_list(StackNode *list) {
-  if (list == NULL){
+StackNode *stack_new(int value) { return stack_node(value); }
+
+/// Prints the stack
+void print_stack(StackNode *list) {
+  if (list == NULL) {
     printf("Failed to print list: given list was NULL!");
     exit(0);
   }
 
   StackNode *c = list;
-  
+
   printf("%d", c->value);
 
   while (c->prev != NULL) {
@@ -36,7 +38,7 @@ void print_list(StackNode *list) {
 
 /// Pushes a value to the end of the list and
 /// returns the tail.
-StackNode* push(StackNode *list, int value) {
+StackNode *push(StackNode *list, int value) {
   StackNode *node = stack_node(value);
   node->prev = list;
 
@@ -54,5 +56,5 @@ int main() {
   list = push(list, 2);
   list = push(list, 3);
 
-  print_list(list);
+  print_stack(list);
 }
