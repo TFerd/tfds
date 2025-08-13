@@ -1,25 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct ListNode { 
-  int value;
-  struct ListNode *prev;
-}ListNode;
+// TODO: move to its own stack.c file 
 
-ListNode* new_node(int value) {
-  ListNode *node = (ListNode*)malloc(sizeof(ListNode));
+typedef struct StackNode { 
+  int value;
+  struct StackNode *prev;
+}StackNode;
+
+StackNode* stack_node(int value) {
+  StackNode *node = (StackNode*)malloc(sizeof(StackNode));
   node->value = value;
 
   return node;
 }
 
-void print_list(ListNode *list) {
+/// Prints the staclk
+void print_list(StackNode *list) {
   if (list == NULL){
     printf("Failed to print list: given list was NULL!");
     exit(0);
   }
 
-  ListNode *c = list;
+  StackNode *c = list;
   
   printf("%d", c->value);
 
@@ -27,22 +30,27 @@ void print_list(ListNode *list) {
     c = c->prev;
     printf(",%d", c->value);
   }
+
+  printf("\n");
 }
 
-/// Returns tail of the list
-ListNode* push(ListNode *list, int value) {
-  ListNode *node = new_node(value);
+/// Pushes a value to the end of the list and
+/// returns the tail.
+StackNode* push(StackNode *list, int value) {
+  StackNode *node = stack_node(value);
   node->prev = list;
 
   return node;
 }
 
-// ListNode* pop(ListNode *list) {}
+// StackNode* peek(StackNode *list) {}
 
-// ListNode* reverse(ListNode *list) {}
+// StackNode* pop(StackNode *list) {}
+
+// StackNode* reverse(StackNode *list) {}
 
 int main() {
-  ListNode *list = new_node(1);
+  StackNode *list = stack_node(1);
   list = push(list, 2);
   list = push(list, 3);
 
