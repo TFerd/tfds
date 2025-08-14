@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// TODO: move to its own stack.c file
+/* TODO: move to its own stack.c file
+   TODO: Make this generic
+*/
 
 typedef struct StackNode {
   int value;
@@ -17,11 +19,11 @@ StackNode *stack_node(int value) {
 
 StackNode *stack_new(int value) { return stack_node(value); }
 
-/// Prints the stack
+/* Prints the stack */
 void print_stack(StackNode *list) {
   if (list == NULL) {
     printf("Failed to print list: given list was NULL!");
-    exit(0);
+    return;
   }
 
   StackNode *c = list;
@@ -36,20 +38,21 @@ void print_stack(StackNode *list) {
   printf("\n");
 }
 
-/// Pushes a value to the end of the list and
-/// returns the tail.
+/* Pushes a value to the end of the list and
+ returns the tail. */
 StackNode *push(StackNode *list, int value) {
   StackNode *node = stack_node(value);
   node->prev = list;
 
   return node;
 }
+/*
+ StackNode* peek(StackNode *list) {}
 
-// StackNode* peek(StackNode *list) {}
+ StackNode* pop(StackNode *list) {}
 
-// StackNode* pop(StackNode *list) {}
-
-// StackNode* reverse(StackNode *list) {}
+ StackNode* reverse(StackNode *list) {}
+*/
 
 int main() {
   StackNode *list = stack_node(1);
