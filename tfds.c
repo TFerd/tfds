@@ -17,10 +17,9 @@ StackNode *stack_node(int value) {
   return node;
 }
 
-StackNode *stack_new(int value) { return stack_node(value); }
+extern StackNode *stack_new(int value) { return stack_node(value); }
 
-/* Prints the stack */
-void print_stack(StackNode *list) {
+extern void print_stack(StackNode *list) {
   if (list == NULL) {
     printf("Failed to print list: given list was NULL!");
     return;
@@ -40,19 +39,21 @@ void print_stack(StackNode *list) {
 
 /* Pushes a value to the end of the list and
  returns the tail. */
-StackNode *push(StackNode *list, int value) {
+extern StackNode *push(StackNode *list, int value) {
   StackNode *node = stack_node(value);
   node->prev = list;
 
   return node;
 }
-/*
- StackNode* peek(StackNode *list) {}
 
- StackNode* pop(StackNode *list) {}
+extern int peek(StackNode *list) { return list->value; }
 
- StackNode* reverse(StackNode *list) {}
-*/
+extern StackNode *pop(StackNode *list) {
+  StackNode *temp = list->prev;
+  free(list);
+
+  return temp;
+}
 
 int main() {
   StackNode *list = stack_node(1);
@@ -60,4 +61,14 @@ int main() {
   list = push(list, 3);
 
   print_stack(list);
+
+  list = pop(list);
+
+  print_stack(list);
+
+  list = push(list, 5);
+  list = push(list, 66);
+
+  print_stack(list);
+  printf("%d", peek(list));
 }
